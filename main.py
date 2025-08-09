@@ -6,6 +6,8 @@ import yt_dlp
 import discord
 from discord import app_commands
 from discord.ext import commands
+from flask import Flask
+from threading import Thread
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
@@ -208,6 +210,19 @@ async def resume(interaction: discord.Interaction):
         return
     gp.voice_client.resume()
     await interaction.response.send_message("▶ Resumed playback.")
+
+app = Flask("")
+
+@app.route("/")
+def home():
+    return "Bot is alive!"
+
+def run():
+    app.run(host="0.0.0.0", port=8080)
+
+def keep_alive():
+    thread = Thread(target=run)
+    thread.start()
 
 if __name__ == "__main__":
     bot.run(TOKEN)
