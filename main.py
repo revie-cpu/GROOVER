@@ -8,6 +8,7 @@ from discord import app_commands
 from discord.ext import commands
 from flask import Flask
 from threading import Thread
+keep_alive()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
